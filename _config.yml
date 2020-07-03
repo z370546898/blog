@@ -4,8 +4,8 @@
 baseurl:
 url: https://blog.zhoufei.tech
 date_format: "ordinal"
-title: 个人技术博客
-subtitle: "公众号：码农"
+title: 飞哥的个人技术博客
+subtitle: "码农"
 description: "飞哥的个人博客，公众号：码农"
 keywords: 码农
 timezone: Asia/Shanghai
@@ -41,7 +41,7 @@ highlight_theme: github
 author: Zhou Fei
 organization: 
 organization_url: 
-github_username: zf_feeling
+github_username: z370546898
 location: beijing, China
 email: zf_feeling@126.com
 
