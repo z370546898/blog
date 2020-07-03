@@ -4,7 +4,7 @@
 baseurl:
 url: https://blog.zhoufei.tech
 date_format: "ordinal"
-title: 码志
+title: 个人技术博客
 subtitle: "公众号：码农"
 description: "飞哥的个人博客，公众号：码农"
 keywords: 码农
@@ -38,12 +38,12 @@ highlight_theme: github
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Zhuang Ma
+author: Zhou Fei
 organization: 
 organization_url: 
-github_username: mzlogin
-location: Wuhan, China
-email: chumpma@gmail.com
+github_username: zf_feeling
+location: beijing, China
+email: zf_feeling@126.com
 
 # ---------------- #
 #    Navigation    #
