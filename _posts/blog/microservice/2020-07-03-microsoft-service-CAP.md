@@ -27,11 +27,11 @@ keywords: 微服务
 一致性、可用性和分区容错性，就是分布式系统的三个特征。那么，我们平时说的CAP 理论又是什么呢？
 
 CAP 理论指的就是，在分布式系统中 C、A、P 这三个特征不能同时满足，只能满足其中两个，如下图所示。这，是不是有点像分布式系统在说，这顶“帽子”我不想要呢？
-![alt CAP](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/CDC3E0AF14C849E4B58C5C7B49F2B718/12031)
+![alt CAP](/images/blog/mircroservice/1.jpeg)
 接下来，我就通过一个例子和你进一步解释下，什么是 CAP 以及 CAP 为什么不能同时满足吧。
 
 如下图所示，网络中有两台服务器 Server1 和 Server2，分别部署了数据库 DB1 和 DB2，这两台机器组成一个服务集群，DB1 和 DB2 两个数据库中的数据要保持一致，共同为用户提供服务。用户 User1 可以向 Server1 发起查询数据的请求，用户 User2 可以向服务器 Server2 发起查询数据的请求，它们共同组成了一个分布式系统。
-![alt CAP](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/90D87ED865FC495CB4169B63FC24139D/12034)
+![alt CAP](/images/blog/mircroservice/2.jpeg)
 对这个系统来说，分别满足 C、A 和 P 指的是：
 在满足一致性 C 的情况下，Server1 和 Server2 中的数据库始终保持一致，即 DB1 和 DB2 内容要始终保持相同；
 
@@ -44,7 +44,7 @@ CAP 理论指的就是，在分布式系统中 C、A、P 这三个特征不能�
 系统会进行数据同步，即图中的 S 操作，将 Server1 中 DB1 的修改同步到服务器 Server2 中，使得 DB2 中的数据 a 也被修改为 2；
 当 User2 向 Server2 发起读取数据 a 的请求时，会得到 a 最新的数据值 2。
 
-![alt CAP](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/B349B31EEABC4232BEFC2EDBB031C5D6/12030)
+![alt CAP](/images/blog/microservice/3.jpeg)
 
 
 这其实是在网络环境稳定、系统无故障的情况下的工作流程。但在实际场景中，网络环境不可能百分之百不出故障，比如网络拥塞、网卡故障等，会导致网络故障或不通，从而导致节点之间无法通信，或者集群中节点被划分为多个分区，分区中的节点之间可通信，分区间不可通信。
@@ -58,10 +58,10 @@ CAP 理论指的就是，在分布式系统中 C、A、P 这三个特征不能�
 我们能想到的处理方式有如下两种。
 
 第一种处理方式是，保证一致性 C，牺牲可用性 A：Server2 选择让 User2 的请求阻塞，一直等到网络恢复正常，Server1 被修改的数据同步更新到 Server2 之后，即 DB2 中数据 a 修改成最新值 2 后，再给用户 User2 响应。
-![alt CAP](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/C684DB994A21434D8A606181C1B146FF/12033)
+![alt CAP](/images/blog/microservice/4.jpeg)
 
 第二种处理方式是，保证可用性 A，牺牲一致性 C：Server2 选择将旧的数据 a=1 返回给用户，等到网络恢复，再进行数据同步。
-![alt CAP](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/030A6D90CB23473295F088CAE9E2E398/12038)
+![alt CAP](/images/blog/microservice/5.jpeg)
 
 除了以上这两种方案，没有其他方案可以选择。可以看出：在满足分区容错性 P 的前提下，一致性 C 和可用性 A 只能选择一个，无法同时满足。CAP 选择策略及应用
 
@@ -98,7 +98,7 @@ CAP 理论指的就是，在分布式系统中 C、A、P 这三个特征不能�
 保证 CP 的系统有很多，典型的有 Redis、HBase、ZooKeeper 等。接下来，我就以 ZooKeeper 为例，带你了解它是如何保证 CP 的。
 
 首先，我们看一下 ZooKeeper 架构图。
-![](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/4C70FE4545834823A043B14AC4A54994/12035)
+![](/images/blog/microservice/6.jpeg)
 
 ZooKeeper 集群包含多个节点（Server），这些节点会通过分布式选举算法选出一个 Leader 节点。在 ZooKeeper 中选举 Leader 节点采用的是 ZAB 算法，你可以再回顾下（面试是不是经常被问到分布式系统核心问题，这一次没人难倒你）中的相关内容。
 
@@ -108,7 +108,7 @@ ZooKeeper 集群包含多个节点（Server），这些节点会通过分布式�
 如果请求的是 Follower 节点，那该节点会将请求转给 Leader，然后 Leader 会先向所有的 Follower 发出一个 Proposal，等超过一半的节点同意后，Leader 才会提交这次写操作，从而保证了数据的强一致性。
 
 具体示意图如下所示：
-![](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/CE6080311E574610BA96C4236C5244C1/12040)
+![](/images/blog/microservice/7.jpeg)
 
 
 当出现网络分区时，如果其中一个分区的节点数大于集群总节点数的一半，那么这个分区可以再选出一个 Leader，仍然对用户提供服务，但在选出 Leader 之前，不能正常为用户提供服务；如果形成的分区中，没有一个分区的节点数大于集群总节点数的一半，那么系统不能正常为用户提供服务，必须待网络恢复后，才能正常提供服务。
@@ -129,7 +129,7 @@ ZooKeeper 集群包含多个节点（Server），这些节点会通过分布式�
 
 当然，待网络恢复后，服务器 A 和 B 的数据会同步到 C，C 更新数据为 59，最终三台服务器数据保持一致，用户刷新一下查询界面或重新提交一下查询，就可以得到最新的数据。而对用户来说，他们并不会感知到前后数据的差异，到底是因为其他用户购买导致的，还是因为网络故障导致数据不同步而产生的。
 
-![](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/B3B1C1724CE04958AA3D9D7CE0F735A1/12042)
+![](/images/blog/microservice/8.jpeg)
 当然，你可能会说，为什么上海服务器不能等网络恢复后，再响应用户请求呢？可以想象一下，如果用户提交一个查询请求，需要等上几分钟、几小时才能得到反馈，那么用户早已离去了。
 
 也就是说这种场景适合优先保证 AP，因为如果等到数据一致之后再给用户返回的话，用户的响应太慢，可能会造成严重的用户流失。
@@ -138,7 +138,7 @@ ZooKeeper 集群包含多个节点（Server），这些节点会通过分布式�
 ### 对比分析
 
 保 CA 弃 P、保 CP 弃 A 和保 AP 弃 C 这三种策略，以方便你记忆和理解。
-![](https://note.youdao.com/yws/public/resource/87887992964db3a2754845037ed7067b/xmlnote/2EBE69E1906547068F93BEB135286DA3/12044)
+![](/images/blog/microservice/9.jpeg)
 
 
 ### 总结
