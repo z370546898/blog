@@ -4,9 +4,9 @@
 baseurl:
 url: https://blog.zhoufei.tech
 date_format: "ordinal"
-title: 飞哥的个人技术博客
+title: 大飞哥的个人技术博客
 #subtitle: "码农"
-description: "飞哥的个人博客，公众号：码农"
+description: "大飞哥的个人博客，公众号：码农"
 #keywords: 码农
 timezone: Asia/Shanghai
 encoding: "utf-8"
