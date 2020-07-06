@@ -27,11 +27,11 @@ keywords: 微服务
 一致性、可用性和分区容错性，就是分布式系统的三个特征。那么，我们平时说的CAP 理论又是什么呢？
 
 CAP 理论指的就是，在分布式系统中 C、A、P 这三个特征不能同时满足，只能满足其中两个，如下图所示。这，是不是有点像分布式系统在说，这顶“帽子”我不想要呢？
-![alt CAP](/images/blog/mircroservice/1.jpeg)
+![alt CAP](/images/blog/microservice/1.jpeg)
 接下来，我就通过一个例子和你进一步解释下，什么是 CAP 以及 CAP 为什么不能同时满足吧。
 
 如下图所示，网络中有两台服务器 Server1 和 Server2，分别部署了数据库 DB1 和 DB2，这两台机器组成一个服务集群，DB1 和 DB2 两个数据库中的数据要保持一致，共同为用户提供服务。用户 User1 可以向 Server1 发起查询数据的请求，用户 User2 可以向服务器 Server2 发起查询数据的请求，它们共同组成了一个分布式系统。
-![alt CAP](/images/blog/mircroservice/2.jpeg)
+![alt CAP](/images/blog/microservice/2.jpeg)
 对这个系统来说，分别满足 C、A 和 P 指的是：
 在满足一致性 C 的情况下，Server1 和 Server2 中的数据库始终保持一致，即 DB1 和 DB2 内容要始终保持相同；
 
