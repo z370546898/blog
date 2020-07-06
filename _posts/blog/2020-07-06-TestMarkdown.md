@@ -1,9 +1,9 @@
 ---
 layout: post
-title: template page
-categories: [cate1, cate2]
-description: some word here
-keywords: keyword1, keyword2
+title: 流程图测试
+categories: [流程图, markdown]
+description: 流程图测试
+keywords: 流程图, markdown
 flow: true
 ---
 
