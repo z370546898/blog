@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-description: 打码改变世界
+description: coding改变世界
 keywords: Zhou fei,周飞
 comments: true
 menu: 关于
