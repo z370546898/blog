@@ -1,7 +1,7 @@
 # ---------------- #
 #   Main Configs   #
 # ---------------- #
-baseurl:
+baseurl: blog.zhoufei.tech
 url: https://blog.zhoufei.tech
 date_format: "ordinal"
 title: 大飞哥的个人技术博客
